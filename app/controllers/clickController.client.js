@@ -1,33 +1,54 @@
-'use strict';
+//'use strict'; //use strict is not a function??
 
 (function () {
+	var addButton = document.querySelector('.btn-add');
+	var deleteButton = document.querySelector('.btn-delete');
+	var clickNum = document.querySelector('#click-num');
+	var apiUrl = 'http://localhost:3000/api/clicks';
 
-   var addButton = document.querySelector('.btn-add');
-   var deleteButton = document.querySelector('.btn-delete');
-   var clickNbr = document.querySelector('#click-nbr');
-   var apiUrl = appUrl + '/api/:id/clicks';
+	function ready (fn) {
+		if (typeof fn !== 'function') {
+			return;
+		}
 
-   function updateClickCount (data) {
-      var clicksObject = JSON.parse(data);
-      clickNbr.innerHTML = clicksObject.clicks;
-   }
+		if (document.readyState === 'complete') {
+			return fn();
+		}
+		document.addEventListener('DOMContentLoaded', fn, false); //read more for better understanding
+	}
 
-   ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, updateClickCount));
+	function ajaxRequest (method, url, callback) {
+		var xmlhttp = new XMLHttpRequest();
 
-   addButton.addEventListener('click', function () {
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+				callback(xmlhttp.response);
+			}
+		};
+		xmlhttp.open(method, url, true);
+		xmlhttp.send();
+	}
+	
+	function updateClickCount (data) {
+		var clicksObject = JSON.parse(data);
+		console.log('update click');
+		console.log(clicksObject);
+		clickNum.innerHTML = clicksObject.clicks;
+	}
 
-      ajaxFunctions.ajaxRequest('POST', apiUrl, function () {
-         ajaxFunctions.ajaxRequest('GET', apiUrl, updateClickCount);
-      });
+	ready(ajaxRequest('GET', apiUrl, updateClickCount));
 
-   }, false);
+	addButton.addEventListener('click', function() {
+		ajaxRequest('POST', apiUrl, function() {
+			console.log('click POST');
+			ajaxRequest('GET', apiUrl, updateClickCount); 
+		});
+	}, false);
 
-   deleteButton.addEventListener('click', function () {
-
-      ajaxFunctions.ajaxRequest('DELETE', apiUrl, function () {
-         ajaxFunctions.ajaxRequest('GET', apiUrl, updateClickCount);
-      });
-
-   }, false);
+	deleteButton.addEventListener('click', function() {
+		ajaxRequest('DELETE', apiUrl, function() {
+			ajaxRequest('GET', apiUrl, updateClickCount); //not working
+		});
+	}, false);
 
 })();

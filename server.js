@@ -1,33 +1,34 @@
 'use strict';
 
-var express = require('express');
-var routes = require('./app/routes/index.js');
-var mongoose = require('mongoose');
-var passport = require('passport');
-var session = require('express-session');
+var express = require('express'),
+	routes = require('./app/routes/index.js'),
+	mongo = require('mongodb').MongoClient;
 
 var app = express();
-require('dotenv').load();
-require('./app/config/passport')(passport);
+var port = 3000;
 
-mongoose.connect(process.env.MONGO_URI);
+mongo.connect('mongodb://localhost:27017/clementinejs', function (err, db) {
+	
+	if (err) 
+		throw new Error('Database failed to connect!');
+	else 
+		console.log('MongoDB successfully connected on port 27017');
 
-app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
-app.use('/public', express.static(process.cwd() + '/public'));
-app.use('/common', express.static(process.cwd() + '/app/common'));
+	app.use('/public', express.static(process.cwd() + '/public'));
+	app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 
-app.use(session({
-	secret: 'secretClementine',
-	resave: false,
-	saveUninitialized: true
-}));
+	routes(app, db);
 
-app.use(passport.initialize());
-app.use(passport.session());
+	app.listen(port, function() {
+		console.log("listening on port " + port +"..");
+	});
 
-routes(app, passport);
-
-var port = process.env.PORT || 8080;
-app.listen(port,  function () {
-	console.log('Node.js listening on port ' + port + '...');
 });
+
+/*
+connect to DB
+inside conncetion,
+	check for error
+	set up routes with app.use and express.static()
+	listen for connection
+*/
