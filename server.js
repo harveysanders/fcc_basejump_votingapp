@@ -12,12 +12,14 @@ var app = express();
 require('dotenv').load(); //add GitHub API info from .env to the Node process.env object.
 require('./app/config/passport')(passport);
 
+var path = process.cwd();
 var port = process.env.PORT || 8080;
 
 mongoose.connect(process.env.MONGO_URI);
 
-app.use('/public', express.static(process.cwd() + '/public'));
-app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+app.use('/controllers', express.static(path + '/app/controllers'));
+app.use('/public', express.static(path + '/public'));
+app.use('/common', express.static(path + '/app/common'));
 
 app.use(session({
 	secret: 'secretClementine',
