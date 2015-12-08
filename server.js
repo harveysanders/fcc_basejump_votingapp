@@ -33,6 +33,7 @@ app.use(passport.session());
 routes(app, passport);
 
 app.listen(port, function() {
+	console.log(process.env.APP_URL);
 	console.log(" Node.js listening on port " + port +"..");
 });
 
