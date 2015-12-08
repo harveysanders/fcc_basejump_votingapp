@@ -9,7 +9,7 @@ var express = require('express'),
 	session = require('express-session');
 
 var app = express();
-require('dotenv').load(); //add GitHub API info from .env to the Node process.env object.
+// require('dotenv').load(); //add GitHub API info from .env to the Node process.env object.
 require('./app/config/passport')(passport);
 
 var path = process.cwd();
