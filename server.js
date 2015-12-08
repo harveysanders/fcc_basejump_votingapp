@@ -4,17 +4,31 @@
 
 var express = require('express'),
 	routes = require('./app/routes/index.js'),
-	mongoose = require('mongoose');
+	mongoose = require('mongoose'),
+	passport = require('passport'),
+	session = require('express-session');
 
 var app = express();
-var port = 8080;
+require('dotenv').load(); //add GitHub API info from .env to the Node process.env object.
+require('./app/config/passport')(passport);
 
-mongoose.connect('mongodb://localhost:27017/clementinejs');
+var port = process.env.PORT || 8080;
+
+mongoose.connect(process.env.MONGO_URI);
 
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 
-routes(app);
+app.use(session({
+	secret: 'secretClementine',
+	resave: false,
+	saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+routes(app, passport);
 
 app.listen(port, function() {
 	console.log(" Node.js listening on port " + port +"..");
