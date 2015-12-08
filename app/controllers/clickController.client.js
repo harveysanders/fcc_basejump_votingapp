@@ -4,7 +4,7 @@
 	var addButton = document.querySelector('.btn-add');
 	var deleteButton = document.querySelector('.btn-delete');
 	var clickNum = document.querySelector('#click-num');
-	var apiUrl = 'http://localhost:3000/api/clicks';
+	var apiUrl = '/api/clicks';
 
 	function ready (fn) {
 		if (typeof fn !== 'function') {

@@ -1,29 +1,26 @@
 'use strict';
 
+//FCC clementine version: http://www.clementinejs.com/tutorials/tutorial-passport.html
+
 var express = require('express'),
 	routes = require('./app/routes/index.js'),
-	mongo = require('mongodb').MongoClient;
+	mongoose = require('mongoose');
 
 var app = express();
-var port = 3000;
+var port = 8080;
 
-mongo.connect('mongodb://localhost:27017/clementinejs', function (err, db) {
-	
-	if (err) 
-		throw new Error('Database failed to connect!');
-	else 
-		console.log('MongoDB successfully connected on port 27017');
+mongoose.connect('mongodb://localhost:27017/clementinejs');
 
-	app.use('/public', express.static(process.cwd() + '/public'));
-	app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+app.use('/public', express.static(process.cwd() + '/public'));
+app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 
-	routes(app, db);
+routes(app);
 
-	app.listen(port, function() {
-		console.log("listening on port " + port +"..");
-	});
-
+app.listen(port, function() {
+	console.log(" Node.js listening on port " + port +"..");
 });
+
+
 
 /*
 connect to DB
