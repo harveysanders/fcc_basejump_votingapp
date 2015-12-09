@@ -186,3 +186,10 @@ span {
     display: inline;
     margin: 0;
 }
+
+
+/*custom css*/
+#bootstrap-override .brand-text{
+    font-family: 'Passion One', cursive;
+    color: #4774FF;
+}
