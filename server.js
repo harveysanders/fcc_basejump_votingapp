@@ -20,7 +20,6 @@ mongoose.connect(process.env.MONGO_URI);
 app.use('/controllers', express.static(path + '/app/controllers'));
 app.use('/public', express.static(path + '/public'));
 app.use('/common', express.static(path + '/app/common'));
-app.use('/test', express.static(path + '/public/test_pages'));
 
 app.use(session({
 	secret: 'secretClementine',
