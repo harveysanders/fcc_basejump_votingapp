@@ -48,12 +48,12 @@ header p {
     color: #FF630D;
 }
 
-header a ~ p {
+/*header a ~ p {
     margin: 0;
     padding: 0;
     display: inline;
     color: #ECEFF1;
-}
+}*/
 
 #display-name {
     font-weight: 400;
@@ -104,7 +104,7 @@ img {
 }
 
 .btn {  /* Styling for buttons */
-    margin: 0 8px;
+    margin: 3px 8px;
     color: white;
     background-color: #00BCD4;
     display: inline-block;
@@ -192,4 +192,13 @@ span {
 #bootstrap-override .brand-text{
     font-family: 'Passion One', cursive;
     color: #4774FF;
+}
+
+#bootstrap-override .btn{
+    background-color: #4774FF;
+    
+}
+
+.jumbotron {
+    background-image: url('/public/img/paper_background.png');
 }

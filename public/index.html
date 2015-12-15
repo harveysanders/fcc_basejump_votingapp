@@ -1,36 +1,97 @@
 <!DOCTYPE html>
-<html>
-   <head>
-      <title>Clementine.js - The elegant and lightweight full-stack boilerplate.</title>
-      <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto:400,500">
-      <link rel="stylesheet" type="text/css" href="/public/css/main.css">
-   </head>
-   <header> <!-- why is this out of the body?? -->
-   		 <p>Welcome, <span id="display-name"></span>!</p>
-	    <a class="menu" href="/profile">Profile</a>
-	    <p>|</p>
-	    <a class="menu" href="/logout">Logout</a>
-   </header>
-   <body>
+<html ng-app='massPoll'>
+<head>
+	<title>MassPoll</title>
+    <link rel="stylesheet" type="text/css" href="//localhost:8081/bootstrap.min.css">
+	<link href="http://fonts.googleapis.com/css?family=Passion+One|Roboto:400,500" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="/public/css/main.css" rel="stylesheet" type="text/css">
+</head>
+<body id="bootstrap-override">
+	 <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                         
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                             <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                        </button> <a class="navbar-brand brand-text" href="/">MassPoll</a>
+                    </div>
+                    
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active">
+                                <a href="/">Home</a>
+                            </li>
+                        </ul>
 
-    <div class="container">
-         <img src="/public/img/clementine_150.png" />
-         <br />
-         <p class="clementine-text">Clementine.js</p>
-      </div>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="#">Hey, <span id="display-name"></span></a>
+                            </li>
+                            <li>
+                                 <a href="/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </nav>
+                <div class="jumbotron text-center">
+                    <h1 class="brand-text">
+                        MassPoll
+                    </h1>
+                    <p>
+                        What would you like to settle? Put it to a vote.
+                    </p>
+                    <a href="/new_poll">
+                            <div class="btn" id="new-poll-btn">
+                                <p>New Poll</p>
+                            </div>
+                        </a>
+                        <a href="/my_polls">
+                            <div class="btn" id="my-polls-btn">
+                                <p>My Polls</p>
+                            </div>
+                        </a>
+                </div>
 
-      <div class="container" ng-controller='clickController'>
-         <p>You have clicked the button <span id="click-num"></span> times.</p>
-         <br />
-         <div class="btn-container">
-            <button type="submit" class="btn btn-add">CLICK ME!</button>
-            <button class="btn btn-delete">RESET</button>
-         </div>
-      </div>
+                <h3>New Poll</h3>
+                <form role="form">
+					<div class="form-group">
+						 
+						<label for="poll-name-input">
+							What's your question?
+						</label>
+						<input type="text" class="form-control" id="poll-name-input" placeholder="ex: Favorite Music App"/>
+					</div>
+					<h4>Choices:</h4>
+					<div class="form-group">
+						 
+						<label for="choice1"></label>
+						<input type="text" class="form-control" id="choice1" placeholder="Songza"/>
+					</div>
+					<div class="form-group">
+						 
+						<label for="choice2"></label>
+						<input type="text" class="form-control" id="choice2" placeholder="Pandora"/>
+					</div>
+					<div class="form-group">
+						 
+						<label for="choice3"></label>
+						<input type="text" class="form-control" id="choice3" placeholder="Spotify"/>
+					</div>
+					<button type="submit" class="btn btn-default">
+						Submit
+					</button>
+				</form>
 
-      <script type="text/javascript" src="common/ajax-functions.js"></script>
-      <script type="text/javascript" src="controllers/clickController.client.js"></script>
+            </div>
+        </div>
 
-   </body>
+    </div>
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.0/angular.min.js"></script>
+    <script type="text/javascript" src="/public/js/app.js"></script>
+</body>
 </html>
