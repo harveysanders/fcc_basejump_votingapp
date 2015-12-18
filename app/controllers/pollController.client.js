@@ -1,7 +1,7 @@
 'use strict';
 
 (function() {
-	var addPollButton = document.querySelector('.btn-add-poll');
+	var addPollButton = document.querySelector('#btn-add-poll');
 	var apiUrl = appUrl + '/api/:id/polls';
 
 	function getInputVal(selector) {
