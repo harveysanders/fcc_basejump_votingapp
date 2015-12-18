@@ -6,7 +6,9 @@ var express = require('express'),
 	routes = require('./app/routes/index.js'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-	session = require('express-session');
+	session = require('express-session'),
+	bodyParser = require('body-parser'); //aargggh hopefully fixes POST req.body issues 
+	//yes!! you need this module to get POST req data!!
 
 var app = express();
 require('dotenv').load(); //add GitHub API info from .env to the Node process.env object.
@@ -16,6 +18,8 @@ var path = process.cwd();
 var port = process.env.PORT || 8080;
 
 mongoose.connect(process.env.MONGO_URI);
+
+app.use(bodyParser()); //aargggh hopefully fixes POST req.body issues 
 
 app.use('/controllers', express.static(path + '/app/controllers'));
 app.use('/public', express.static(path + '/public'));
