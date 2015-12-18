@@ -9,19 +9,25 @@ function PollHandler () {
 			.exec(function (err, user) {
 				if (err) throw err;
 				//figure out what to do with the result
-				console.log('getting polls for' + user.polls);
-				res.json(user.polls);
+				// console.log('getting polls for' + user);
+				res.json(user);
 			});
 	};
 
 	this.addPoll = function(req, res) {
+		
+		var poll = {
+			pollName: req.body.pollName,
+			option1: req.body.pollChoice1, //figure out dynamic option handling
+			option2: req.body.pollChoice2,
+			option3: req.body.pollChoice3
+		};
+
 		Users
-			.findOne({ 'github.id': req.user.github.id }, {'id': false})
+			.findOneAndUpdate({ 'github.id': req.user.github.id }, {$push: {"polls": poll} })
 			.exec(function (err, user) {
 				if (err) throw err;
-				user.polls.push({
-					pollQuestion: 'test'
-				});
+				res.json(user.polls);
 			});
 	};
 
@@ -33,6 +39,7 @@ function PollHandler () {
 				console.log('in deletePoll function.');
 			});
 	};
+
 }
 
 module.exports = PollHandler;
