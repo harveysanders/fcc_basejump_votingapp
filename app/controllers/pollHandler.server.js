@@ -10,6 +10,7 @@ function PollHandler () {
 				if (err) throw err;
 				//figure out what to do with the result
 				console.log('getting polls for' + user.polls);
+				res.json(user.polls);
 			});
 	};
 

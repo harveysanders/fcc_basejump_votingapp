@@ -12,7 +12,6 @@
    	}
 
    	ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function(data) {
-   		console.log('ajaxFunctions called');
          var userObject = JSON.parse(data);
          console.log(userObject);
    		updateHtmlElement(userObject, displayName, 'displayName');

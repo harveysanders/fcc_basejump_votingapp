@@ -36,7 +36,7 @@ module.exports = function (passport) {
 					newUser.polls = [];
 
 					newUser.save(function (err) {
-						if (err) throw err;
+						if (err) return done(err);
 						return done(null, newUser);
 					});
 				}

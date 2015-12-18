@@ -10,6 +10,7 @@
 	}
 
 	addPollButton.addEventListener('click', function() {
+		//TODO fix new poll posting to db
 		ajaxFunctions.ajaxRequest('POST', apiUrl, function() {
 			console.log('posting.');
 			ajaxFunctions.ajaxRequest('GET', apiUrl, showAddedPoll);
