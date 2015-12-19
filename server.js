@@ -19,7 +19,11 @@ var port = process.env.PORT || 8080;
 
 mongoose.connect(process.env.MONGO_URI);
 
-app.use(bodyParser()); //aargggh hopefully fixes POST req.body issues 
+//aargggh hopefully fixes POST req.body issues 
+app.use(bodyParser.urlencoded({
+	extended: true
+})); 
+app.use(bodyParser.json());
 
 app.use('/controllers', express.static(path + '/app/controllers'));
 app.use('/public', express.static(path + '/public'));
