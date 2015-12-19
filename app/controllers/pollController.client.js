@@ -11,12 +11,15 @@
 	}
 
 	function createPoll() {
-		return {
-			pollName: getInputVal('#poll-name-input'),
-			//figure out best represention for 1 or more poll options
-			pollChoice1: getInputVal('#choice1'),
-			pollChoice2: getInputVal('#choice2'),
-		};
+		var poll = {};
+
+		poll.pollName = getInputVal('#poll-name-input');
+		poll.pollOptions = [];
+
+		$(".poll-choices input[type=text]").each(function(){
+			poll.pollOptions.push($(this).val());
+		});
+		return poll;
 	}
 
 	function showAddedPoll (data) {

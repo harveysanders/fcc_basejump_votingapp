@@ -15,30 +15,25 @@ function PollHandler () {
 	};
 
 	this.addPoll = function(req, res) {
-		function createPoll(pollName, options) {
+		//TODO allow createPoll() to accept poll obj e.g. 
+		//{pollName: 'name of poll', options: [...] } 
+		function createPoll(pollName, pollOptions) {
 			var poll = {};
-			var args = Array.prototype.slice.call(arguments, 1);
 			
-			args.forEach(function(arg, index) {
-				poll['option' + index] = arg;
-			});
-
 			poll.pollName = pollName;
-
+			poll.options = pollOptions.map(function(option, index) {
+				return {
+					option: option,
+					votes: 0
+				};
+			});
 			return poll;
 		}
 
-		createPoll(req.body.pollName);
-
-		var poll = {
-			pollName: req.body.pollName,
-			option1: req.body.pollChoice1, //figure out dynamic option handling
-			option2: req.body.pollChoice2,
-			option3: req.body.pollChoice3
-		};
+		var newPoll = createPoll(req.body.pollName, req.body.pollOptions);
 
 		Users
-			.findOneAndUpdate({ 'github.id': req.user.github.id }, {$push: {"polls": poll} })
+			.findOneAndUpdate({ 'github.id': req.user.github.id }, {$push: {"polls": newPoll} })
 			.exec(function (err, user) {
 				if (err) throw err;
 				res.json(user.polls);
