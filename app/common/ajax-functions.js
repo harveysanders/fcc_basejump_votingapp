@@ -22,8 +22,8 @@ var ajaxFunctions = {
 
 		xmlhttp.open(method, url, true);
 		if (method === 'POST') {
-			xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xmlhttp.send(postData);
+			xmlhttp.setRequestHeader("Content-type", "application/json");
+			xmlhttp.send(JSON.stringify(postData));
 		} else {
 			xmlhttp.send(null);
 		}
