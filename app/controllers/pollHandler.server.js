@@ -15,7 +15,21 @@ function PollHandler () {
 	};
 
 	this.addPoll = function(req, res) {
-		
+		function createPoll(pollName, options) {
+			var poll = {};
+			var args = Array.prototype.slice.call(arguments, 1);
+			
+			args.forEach(function(arg, index) {
+				poll['option' + index] = arg;
+			});
+
+			poll.pollName = pollName;
+
+			return poll;
+		}
+
+		createPoll(req.body.pollName);
+
 		var poll = {
 			pollName: req.body.pollName,
 			option1: req.body.pollChoice1, //figure out dynamic option handling
