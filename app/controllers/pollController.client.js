@@ -16,13 +16,11 @@
 			//figure out best represention for 1 or more poll options
 			pollChoice1: getInputVal('#choice1'),
 			pollChoice2: getInputVal('#choice2'),
-			pollChoice3: getInputVal('#choice3')
 		};
 	}
 
 	function showAddedPoll (data) {
 		var pollObject = JSON.parse.data;
-		// console.log(pollObject);
 	}
  
 	function serialize(obj) { //http://stackoverflow.com/questions/1714786/querystring-encoding-of-a-javascript-object
@@ -39,7 +37,7 @@
 		ajaxFunctions.ajaxRequest('POST', apiUrl, function() {
 
 			ajaxFunctions.ajaxRequest('GET', apiUrl, showAddedPoll);
-		}, serialize(createPoll()));
+		}, createPoll());
 	}, false);
 
 })();
